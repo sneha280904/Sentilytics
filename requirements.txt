@@ -1,5 +1,14 @@
-Flask
-nltk
-transformers
-torch
-psycopg2-binary
+## <---------- Flask - Web Framework ---------->
+Flask                  # A lightweight web framework for building web applications in Python.
+
+## <---------- nltk - Natural Language Toolkit ---------->
+nltk                   # A library for working with human language data (text), especially for text processing and NLP tasks.
+
+## <---------- transformers - Hugging Face Transformers ---------->
+transformers           # Hugging Face library for using state-of-the-art pre-trained models for NLP tasks (like BERT, GPT, etc.).
+
+## <---------- torch - PyTorch ---------->
+torch                  # An open-source machine learning framework for deep learning and artificial intelligence applications.
+
+## <---------- psycopg2-binary - PostgreSQL Database Adapter ---------->
+psycopg2-binary        # A PostgreSQL adapter for Python, allowing interaction with a PostgreSQL database.

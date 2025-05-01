@@ -1,46 +1,82 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE defines the HTML version -->
+<!DOCTYPE html> 
+
+<!-- <html> tag starts the HTML document -->
 <html lang="en">
+
+<!-- <---------- HEAD SECTION ---------->  
 <head>
+    <!-- Meta charset for character encoding -->
     <meta charset="UTF-8">
+    
+    <!-- Page title shown in browser tab -->
     <title>Sentiment Analyzer</title>
+    
+    <!-- For responsiveness on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Linking CSS file stored in static folder -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Adding favicon (logo) -->
     <link rel="icon" type="png" href="{{ url_for('static', filename='logo.png') }}">
 </head>
+
+<!-- <---------- BODY SECTION ---------->  
 <body>
 
+<!-- Card container for main content -->
 <div class="card">
+    
+    <!-- Page Heading -->
     <h1>Sentiment Analyzer</h1>
+    
+    <!-- Instruction for user -->
     <p>Enter a social media post below to analyze its sentiment instantly</p>
 
+    <!-- <---------- FORM SECTION ---------->  
     <form id="sentimentForm">
+        
+        <!-- Text input box for user post -->
         <textarea name="text" rows="5" placeholder="Paste your post here..."></textarea>
+        
+        <!-- Dropdown to select analysis method -->
         <select name="method">
             <option value="vader">VADER (Fast)</option>
             <option value="transformer">Transformer (Accurate)</option>
         </select>
+        
+        <!-- Submit button -->
         <button type="submit">Analyze Now</button>
     </form>
 
+    <!-- Area where result will be shown -->
     <div id="result"></div>
 
-    <div class="footer">Built with ❤️ by SNEHA, using Flask, PostgreSQL & HuggingFace</div>
+    <!-- Footer message -->
+    <div class="footer">Built with ❤️ by SNEHA</div>
 </div>
 
+<!-- <---------- JAVASCRIPT SECTION ---------->  
 <script>
+    // Add event listener to handle form submit
     document.getElementById('sentimentForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+        e.preventDefault(); // Prevent default form submission
+        
+        const formData = new FormData(this); // Capture form data
+        
+        const resultBox = document.getElementById('result'); // Get result container
+        resultBox.innerHTML = 'Analyzing...'; // Show loading message
 
-        const resultBox = document.getElementById('result');
-        resultBox.innerHTML = 'Analyzing...';
-
+        // Send POST request to Flask backend
         const response = await fetch('/analyze', {
             method: 'POST',
             body: formData
         });
-        const data = await response.json();
 
+        const data = await response.json(); // Parse JSON response
+
+        // Display result in HTML with label and confidence
         resultBox.innerHTML = `
             <p class="result-label">Sentiment:</p>
             <p><strong>${data.label.toUpperCase()}</strong></p>
