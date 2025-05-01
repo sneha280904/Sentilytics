@@ -1,0 +1,110 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 15px;
+    transition: border 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #74ebd5;
+    outline: none;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+#result {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #222;
+}
+
+.result-label {
+    font-weight: bold;
+    color: #764ba2;
+}
+
+.footer {
+    margin-top: 30px;
+    font-size: 13px;
+    color: #999;
+}
+
+@media (max-width: 500px) {
+    .card {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+}

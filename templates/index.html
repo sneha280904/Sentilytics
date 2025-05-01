@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="png" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>Sentiment Analyzer</h1>
+    <p>Enter a social media post below to analyze its sentiment instantly</p>
+
+    <form id="sentimentForm">
+        <textarea name="text" rows="5" placeholder="Paste your post here..."></textarea>
+        <select name="method">
+            <option value="vader">VADER (Fast)</option>
+            <option value="transformer">Transformer (Accurate)</option>
+        </select>
+        <button type="submit">Analyze Now</button>
+    </form>
+
+    <div id="result"></div>
+
+    <div class="footer">Built with ❤️ by SNEHA, using Flask, PostgreSQL & HuggingFace</div>
+</div>
+
+<script>
+    document.getElementById('sentimentForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        const resultBox = document.getElementById('result');
+        resultBox.innerHTML = 'Analyzing...';
+
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+
+        resultBox.innerHTML = `
+            <p class="result-label">Sentiment:</p>
+            <p><strong>${data.label.toUpperCase()}</strong></p>
+            <p>Confidence: ${Math.round(data.score * 100)}%</p>
+        `;
+    });
+</script>
+
+</body>
+</html>

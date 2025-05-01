@@ -1,0 +1,5 @@
+Flask
+nltk
+transformers
+torch
+psycopg2-binary
