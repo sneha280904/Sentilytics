@@ -8,8 +8,7 @@ nltk.download('vader_lexicon')
 # Initialize VADER
 vader = SentimentIntensityAnalyzer()
 
-# Do NOT initialize Hugging Face pipeline at import time!
-
+# ✅ Function to analyze sentiment
 def analyze_sentiment(text, method='vader'):
     if method == 'vader':
         score = vader.polarity_scores(text)['compound']
@@ -17,10 +16,11 @@ def analyze_sentiment(text, method='vader'):
         return {'label': label, 'score': round(score, 2)}
     
     else:
-        # Lazy-load Hugging Face model
-        hf_pipeline = pipeline(
-            "sentiment-analysis",
-            model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
-        )
-        result = hf_pipeline(text)[0]
+        # ✅ Lazy-load and cache Hugging Face model only once
+        if not hasattr(analyze_sentiment, "_hf_pipeline"):
+            analyze_sentiment._hf_pipeline = pipeline(
+                "sentiment-analysis",
+                model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+            )
+        result = analyze_sentiment._hf_pipeline(text)[0]
         return {'label': result['label'].lower(), 'score': round(result['score'], 2)}
