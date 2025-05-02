@@ -6,5 +6,7 @@
 docker-compose.yml
 
 ## Dockerfile is used to build the image for your application
-Dockerfile
+DockerFile
 D:/Coding/Python-Projects/Sentilytics/DockerFile
+
+*.png
