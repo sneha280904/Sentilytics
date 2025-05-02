@@ -30,9 +30,9 @@ def analyze():
     
     ## Perform sentiment analysis using the chosen method
     sentiment = analyze_sentiment(text, method)
-    
+
     ## Save the post and its sentiment result to the database
-    insert_post(text, sentiment['label'], sentiment['score'])
+    insert_post(text, method, sentiment['label'], sentiment['score'])
     
     ## Return the sentiment result as JSON
     return jsonify(sentiment)

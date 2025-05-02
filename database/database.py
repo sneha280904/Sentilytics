@@ -25,16 +25,24 @@ cur = conn.cursor()        ## Create a cursor object to interact with the databa
 ## <---------- Create posts table if it doesn't exist ---------->
 cur.execute("""                          
 CREATE TABLE IF NOT EXISTS posts (
-    id SERIAL PRIMARY KEY,      
-    text TEXT,                  
-    sentiment VARCHAR(20),       
-    score FLOAT                  
+    id SERIAL PRIMARY KEY,
+    text TEXT,
+    model TEXT,
+    sentiment VARCHAR(20),
+    score FLOAT 
 )
 """)
 conn.commit()               ## Commit the transaction to make changes persistent
 
-## <---------- Function to insert a post record into the posts table ---------->
-def insert_post(text, sentiment, score):           ## Inserts a post with sentiment analysis result
-    cur.execute("INSERT INTO posts (text, sentiment, score) VALUES (%s, %s, %s)", (text, sentiment, score))
-    conn.commit()                                  ## Commit after insertion to save the changes
+## <---------- Function to insert a post record into the posts table with exception handling ---------->
 
+def insert_post(text, model, sentiment, score):              ## Function to insert a post into the posts table
+    try:                                                      ## Try block to attempt the insertion
+        cur.execute(                                          ## Execute the SQL insert query using psycopg2
+            "INSERT INTO posts (text, model, sentiment, score) VALUES (%s, %s, %s, %s)",  ## SQL insert statement with 4 placeholders
+            (text, model, sentiment, score)                  ## Values to be inserted into the table
+        )
+        conn.commit()                                         ## Commit the transaction if insertion is successful
+    except Exception as e:                                    ## If any error occurs during the transaction
+        conn.rollback()                                       ## Rollback the transaction to clear failed state
+        print("Error inserting post:", e)                     ## Print the error message for debugging
