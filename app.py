@@ -1,8 +1,10 @@
 ## <---------- IMPORTING REQUIRED MODULES ---------->
 ## Importing Flask core functions and request tools
 from flask import Flask, request, render_template, jsonify
+
 ## Importing the sentiment analysis function from model module
 from model.model import analyze_sentiment
+
 ## Importing the function to insert analyzed post data into the database
 from database.database import insert_post
 
@@ -22,12 +24,16 @@ def home():
 def analyze():
     ## Get the user input text from the form
     text = request.form.get('text')
+
     ## Get the selected method, default to 'vader'
     method = request.form.get('method', 'vader')
+    
     ## Perform sentiment analysis using the chosen method
     sentiment = analyze_sentiment(text, method)
+    
     ## Save the post and its sentiment result to the database
     insert_post(text, sentiment['label'], sentiment['score'])
+    
     ## Return the sentiment result as JSON
     return jsonify(sentiment)
 
