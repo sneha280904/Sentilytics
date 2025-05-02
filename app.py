@@ -15,4 +15,4 @@ app.register_blueprint(sentiment_bp)
 ## <---------- APP ENTRY POINT ---------->
 ## Start the Flask app with debug mode enabled
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
