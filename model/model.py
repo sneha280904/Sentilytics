@@ -1,27 +1,26 @@
-## <---------- Import libraries for sentiment analysis ---------->
-import nltk  ## Natural Language Toolkit for text processing
-from nltk.sentiment.vader import SentimentIntensityAnalyzer  ## VADER sentiment analysis tool
-from transformers import pipeline  ## Hugging Face pipeline for transformer models
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from transformers import pipeline
 
-## <---------- Download required NLTK data ---------->
-nltk.download('vader_lexicon')  ## Download VADER lexicon for sentiment analysis
+# Download VADER lexicon if not already
+nltk.download('vader_lexicon')
 
-## <---------- Initialize sentiment analyzers ---------->
-vader = SentimentIntensityAnalyzer()  ## Initialize VADER analyzer
-# hf_pipeline = pipeline("sentiment-analysis")  ## Load Hugging Face sentiment analysis pipeline
-hf_pipeline = pipeline(
-    "sentiment-analysis",
-    model="distilbert/distilbert-base-uncased-finetuned-sst-2-english",
-    revision="714eb0f"  # Optional but locks version for reproducibility
-)
+# Initialize VADER
+vader = SentimentIntensityAnalyzer()
 
-## <---------- Function to analyze sentiment using selected method ---------->
-def analyze_sentiment(text, method='vader'):  ## Analyze sentiment using either VADER or Hugging Face
-    if method == 'vader':  ## If method is VADER
-        score = vader.polarity_scores(text)['compound']  ## Get compound sentiment score
-        label = "positive" if score > 0.05 else "negative" if score < -0.05 else "neutral"  ## Determine label
-        return {'label': label, 'score': round(score, 2)}  ## Return result as a dictionary
+# Do NOT initialize Hugging Face pipeline at import time!
+
+def analyze_sentiment(text, method='vader'):
+    if method == 'vader':
+        score = vader.polarity_scores(text)['compound']
+        label = "positive" if score > 0.05 else "negative" if score < -0.05 else "neutral"
+        return {'label': label, 'score': round(score, 2)}
     
-    else:  ## If method is Hugging Face transformer
-        result = hf_pipeline(text)[0]  ## Run the transformer model and get result
-        return {'label': result['label'].lower(), 'score': round(result['score'], 2)}  ## Return result in lowercase label
+    else:
+        # Lazy-load Hugging Face model
+        hf_pipeline = pipeline(
+            "sentiment-analysis",
+            model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+        )
+        result = hf_pipeline(text)[0]
+        return {'label': result['label'].lower(), 'score': round(result['score'], 2)}
