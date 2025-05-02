@@ -8,7 +8,12 @@ nltk.download('vader_lexicon')  ## Download VADER lexicon for sentiment analysis
 
 ## <---------- Initialize sentiment analyzers ---------->
 vader = SentimentIntensityAnalyzer()  ## Initialize VADER analyzer
-hf_pipeline = pipeline("sentiment-analysis")  ## Load Hugging Face sentiment analysis pipeline
+# hf_pipeline = pipeline("sentiment-analysis")  ## Load Hugging Face sentiment analysis pipeline
+hf_pipeline = pipeline(
+    "sentiment-analysis",
+    model="distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+    revision="714eb0f"  # Optional but locks version for reproducibility
+)
 
 ## <---------- Function to analyze sentiment using selected method ---------->
 def analyze_sentiment(text, method='vader'):  ## Analyze sentiment using either VADER or Hugging Face
