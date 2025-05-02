@@ -6,7 +6,7 @@ from flask import Flask, render_template, jsonify, request
 from model.model import analyze_sentiment
 
 ## Importing the function to insert analyzed post data into the database
-from database.database import insert_post
+from database.renderDatabase import insert_post
 
 ## <---------- SERVICE CLASS DEFINITIONS ----------> 
 class service:
