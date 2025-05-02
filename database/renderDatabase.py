@@ -15,7 +15,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")    ## Database password
 
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL ="postgresql://sentilytics_user:ODsWMt61SaeLtu7bBNMroytyhC3mSqK8@dpg-d0aa7s1r0fns73f9abfg-a.oregon-postgres.render.com/sentilytics"
 
 conn = psycopg2.connect(DATABASE_URL)  ## Read from env variable
 
