@@ -5,5 +5,5 @@
 ## docker-compose.yml defines and runs multi-container Docker apps
 docker-compose.yml
 
-## Dockerfile is used to build the image for your application
-Dockerfile
+# ## Dockerfile is used to build the image for your application
+# Dockerfile
