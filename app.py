@@ -9,7 +9,7 @@ from postText.controller.controller import sentiment_bp
 ## Creating an instance of the Flask app
 app = Flask(__name__)
 
-# ✅ Register your Blueprint
+# Register your Blueprint
 app.register_blueprint(sentiment_bp)
 
 ## <---------- APP ENTRY POINT ---------->
