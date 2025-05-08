@@ -1,5 +1,7 @@
 # 📊 Sentilytics: Social Media Sentiment Analyzer
 
+Note: The source code for this project has been made private intentionally.
+
 > **Analyze public emotions across social media using Machine Learning and NLP.**
 
 ---
